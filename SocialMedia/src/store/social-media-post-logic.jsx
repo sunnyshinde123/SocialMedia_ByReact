@@ -11,15 +11,28 @@ export const PostItems = createContext(
 );
 
 let postUpdatedFunction = (currPost, action) => {
-    let newPost=currPost;
-    if(action.type=="add_Post"){
-        newPost=currPost.map((ele)=> [...ele, action.payload]);
-
-    }else if(action.type=="delete_Post"){
-        newPost=currPost.filter((ele)=> ele.id!==action.payload)
+    let newPost;
+    if (action.type === "add_Post") {
+        newPost = [...currPost, action.payload.getData];
+    } else if (action.type === "delete_Post") {
+        newPost = currPost.filter((post) => post.id !== action.payload);
+    } else {
+        newPost = currPost;
     }
     return newPost;
-}
+};
+
+// let postUpdatedFunction = (currPost, action) => {
+//     let newPost=currPost;
+//     if(action.type=="add_Post"){
+//         console.log(action.payload);
+//         newPost=[...currPost, action.payload];
+
+//     }else if(action.type=="delete_Post"){
+//         newPost=currPost.filter((ele)=> ele.id!==action.payload)
+//     }
+//     return newPost;
+// }
 
 export default function PostList({children}){
     let[post, dispatchPost]=useReducer(postUpdatedFunction, [
@@ -36,7 +49,9 @@ export default function PostList({children}){
     let addPost = (getData)=>{
         let newPost = {
             type:"add_Post",
-            payload:getData
+            payload:{
+                getData,
+            }
         }
         dispatchPost(newPost);
     }

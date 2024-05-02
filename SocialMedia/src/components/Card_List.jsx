@@ -9,7 +9,9 @@ export default function Card_List(){
     const {post} =useContext(PostItems);
     return (
         <>
+        <div className="card-box">
         {post.map((items)=> <Card key={items.id} postdata={items}></Card>)}
+        </div>
         </>
     )
 }

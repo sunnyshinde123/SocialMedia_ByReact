@@ -18,6 +18,7 @@ export default function Card({postdata}){
                 </h5>
                 <p className="card-text">{postdata.description}</p>
                 <hr />
+                
                 {postdata.tag.map((ele,idx)=> <a href="#" style={{textDecoration:"none"}} className="tags" key={idx}>{ele} &nbsp;</a> )}
             </div>
         </div>
